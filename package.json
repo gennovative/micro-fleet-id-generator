@@ -1,0 +1,52 @@
+{
+  "name": "back-lib-id-generator",
+  "private": true,
+  "version": "0.2.0",
+  "description": "Provides methods to generate database primary key ID..",
+  "main": "./dist/app/index.js",
+  "types": "./typings/app.d.ts",
+  "repository": "git@bitbucket.org:firstinteractive/back-lib-id-generator.git",
+  "engines": {
+    "node": "~7.10.1",
+    "npm": "~4.6.1"
+  },
+  "dependencies": {
+    "back-lib-common-constants": "git+ssh://git@bitbucket.org:firstinteractive/back-lib-common-constants.git#1.1.0",
+    "back-lib-common-contracts": "git+ssh://git@bitbucket.org/firstinteractive/back-lib-common-contracts.git#1.1.0",
+    "back-lib-service-communication": "git+ssh://git@bitbucket.org/firstinteractive/back-lib-service-communication.git#0.2.0",
+    "flake-idgen": "^1.1.0",
+    "int64-buffer": "^0.1.9",
+    "shortid": "^2.2.8",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.1",
+    "@types/chai-spies": "0.0.0",
+    "@types/flake-idgen": "^0.1.30",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.38",
+    "chai": "^4.1.0",
+    "chai-spies": "git://github.com/chaijs/chai-spies.git#b11aeebf",
+    "del": "^3.0.0",
+    "dts-generator": "^2.1.0",
+    "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.1",
+    "gulp-debug": "^3.1.0",
+    "gulp-header": "^1.8.8",
+    "gulp-istanbul": "^1.1.2",
+    "gulp-mocha": "^3.0.1",
+    "gulp-replace": "^0.6.1",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-tslint": "^8.1.1",
+    "gulp-typescript": "^3.2.1",
+    "gulp-watch": "^4.3.11",
+    "gulp-watch-sequence": "^1.0.0",
+    "istanbul": "^0.4.5",
+    "merge-stream": "^1.0.1",
+    "mocha": "^3.4.2",
+    "remap-istanbul": "^0.9.5",
+    "through2": "^2.0.3",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.2"
+  }
+}
