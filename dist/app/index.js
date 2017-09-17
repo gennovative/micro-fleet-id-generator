@@ -5,5 +5,6 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./IdGenerator"));
 __export(require("./IdProvider"));
+__export(require("./Types"));
 
 //# sourceMappingURL=index.js.map
