@@ -77,8 +77,15 @@ declare module 'back-lib-id-generator/dist/app/IdProvider' {
 	    	}
 
 }
+declare module 'back-lib-id-generator/dist/app/Types' {
+	export class Types {
+	    static readonly ID_PROVIDER: symbol;
+	}
+
+}
 declare module 'back-lib-id-generator' {
 	export * from 'back-lib-id-generator/dist/app/IdGenerator';
 	export * from 'back-lib-id-generator/dist/app/IdProvider';
+	export * from 'back-lib-id-generator/dist/app/Types';
 
 }
