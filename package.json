@@ -1,7 +1,7 @@
 {
   "name": "back-lib-id-generator",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Provides methods to generate database primary key ID..",
   "main": "./dist/app/index.js",
   "types": "./typings/app.d.ts",
@@ -13,7 +13,7 @@
   "dependencies": {
     "back-lib-common-constants": "git+ssh://git@bitbucket.org:firstinteractive/back-lib-common-constants.git#1.1.0",
     "back-lib-common-contracts": "git+ssh://git@bitbucket.org/firstinteractive/back-lib-common-contracts.git#1.1.0",
-    "back-lib-service-communication": "git+ssh://git@bitbucket.org/firstinteractive/back-lib-service-communication.git#0.2.0",
+    "back-lib-service-communication": "git+ssh://git@bitbucket.org/firstinteractive/back-lib-service-communication.git#0.2.1",
     "flake-idgen": "^1.1.0",
     "int64-buffer": "^0.1.9",
     "shortid": "^2.2.8",
@@ -47,6 +47,6 @@
     "remap-istanbul": "^0.9.5",
     "through2": "^2.0.3",
     "tslint": "^5.5.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.5.2"
   }
 }
