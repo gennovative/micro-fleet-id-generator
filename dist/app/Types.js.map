@@ -1,1 +1,1 @@
-{"version":3,"sources":["app/Types.ts"],"names":[],"mappings":";;AAAA;;AACwB,iBAAW,GAAG,MAAM,CAAC,YAAY,CAAC,CAAC;AAD3D,sBAEC","file":"Types.js","sourcesContent":["export class Types {\r\n\tpublic static readonly ID_PROVIDER = Symbol('IdProvider');\r\n}"]}
+{"version":3,"sources":["app/Types.ts"],"names":[],"mappings":";;AAAA;;AACwB,iBAAW,GAAG,yBAAyB,CAAC;AADhE,sBAEC","file":"Types.js","sourcesContent":["export class Types {\r\n\tpublic static readonly ID_PROVIDER = 'id-generator.IdProvider';\r\n}"]}
