@@ -1,7 +1,7 @@
 import * as FlakeId from 'flake-idgen';
 import * as shortid from 'shortid';
 import { Int64BE } from 'int64-buffer';
-const uuidv4 = require('uuid/v4');
+import uuidv4 = require('uuid/v4');
 
 
 export type BigIdOptions = {

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const FlakeId = require("flake-idgen");
 const shortid = require("shortid");
 const int64_buffer_1 = require("int64-buffer");
-const uuidv4 = require('uuid/v4');
+const uuidv4 = require("uuid/v4");
 /**
  * Provides methods to generate bigint ID
  */
