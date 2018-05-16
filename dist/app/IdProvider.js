@@ -20,25 +20,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const back_lib_common_constants_1 = require("back-lib-common-constants");
-const back_lib_common_contracts_1 = require("back-lib-common-contracts");
-const back_lib_common_util_1 = require("back-lib-common-util");
-const back_lib_service_communication_1 = require("back-lib-service-communication");
+const common_contracts_1 = require("@micro-fleet/common-contracts");
+const common_util_1 = require("@micro-fleet/common-util");
+const service_communication_1 = require("@micro-fleet/service-communication");
 const IdGenerator_1 = require("./IdGenerator");
+const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = common_contracts_1.constants;
 let IdProvider = IdProvider_1 = class IdProvider {
     constructor(_configProvider, _rpcCaller) {
         this._configProvider = _configProvider;
         this._rpcCaller = _rpcCaller;
-        back_lib_common_util_1.Guard.assertArgDefined('_configProvider', _configProvider);
-        back_lib_common_util_1.Guard.assertArgDefined('_rpcCaller', _rpcCaller);
+        common_util_1.Guard.assertArgDefined('_configProvider', _configProvider);
+        common_util_1.Guard.assertArgDefined('_rpcCaller', _rpcCaller);
         this._idGen = new IdGenerator_1.IdGenerator();
     }
     /**
      * @see IServiceAddOn.init
      */
     init() {
-        this._rpcCaller.name = this._configProvider.get(back_lib_common_constants_1.SvcSettingKeys.SERVICE_SLUG);
-        this._addresses = this._configProvider.get(back_lib_common_constants_1.SvcSettingKeys.ID_SERVICE_ADDRESSES);
+        this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG);
+        this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES);
         return Promise.resolve();
     }
     /**
@@ -72,7 +72,7 @@ let IdProvider = IdProvider_1 = class IdProvider {
     attempFetch(address) {
         return __awaiter(this, void 0, void 0, function* () {
             this._rpcCaller.baseAddress = address;
-            return this._rpcCaller.call(back_lib_common_constants_1.ModuleNames.ID_GEN, back_lib_common_constants_1.ActionNames.NEXT_BIG_INT, {
+            return this._rpcCaller.call(M.ID_GEN, A.NEXT_BIG_INT, {
                 service: this._rpcCaller.name,
                 count: IdProvider_1.CACHE_SIZE
             })
@@ -85,9 +85,9 @@ let IdProvider = IdProvider_1 = class IdProvider {
 };
 IdProvider.CACHE_SIZE = 10;
 IdProvider = IdProvider_1 = __decorate([
-    back_lib_common_util_1.injectable(),
-    __param(0, back_lib_common_util_1.inject(back_lib_common_contracts_1.Types.CONFIG_PROVIDER)),
-    __param(1, back_lib_common_util_1.inject(back_lib_service_communication_1.Types.DIRECT_RPC_CALLER)),
+    common_util_1.injectable(),
+    __param(0, common_util_1.inject(common_contracts_1.Types.CONFIG_PROVIDER)),
+    __param(1, common_util_1.inject(service_communication_1.Types.DIRECT_RPC_CALLER)),
     __metadata("design:paramtypes", [Object, Object])
 ], IdProvider);
 exports.IdProvider = IdProvider;

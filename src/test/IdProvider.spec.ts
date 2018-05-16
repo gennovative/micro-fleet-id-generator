@@ -2,14 +2,14 @@ import * as chai from 'chai';
 import * as spies from 'chai-spies';
 import * as _ from 'lodash';
 
-import { SvcSettingKeys as S, ModuleNames as M, ActionNames as A } from 'back-lib-common-constants';
-import { IConfigurationProvider, SettingItemDataType } from 'back-lib-common-contracts';
-import { IDirectRpcCaller, IRpcResponse, Types as ComT } from 'back-lib-service-communication';
+import { IConfigurationProvider, SettingItemDataType, constants } from '@micro-fleet/common-contracts';
+import { IDirectRpcCaller, IRpcResponse, Types as ComT } from '@micro-fleet/service-communication';
 
 import { IdProvider } from '../app';
 
 chai.use(spies);
 
+const { SvcSettingKeys: S, ModuleNames: M, ActionNames: A } = constants;
 const expect = chai.expect,
 	SVC_SLUG = 'test-svc',
 	ID_SVC_ADDR = ['192.168.1.1', '192.168.1.2'];

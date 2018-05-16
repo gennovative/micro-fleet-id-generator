@@ -1,6 +1,6 @@
 /// <reference path="./global.d.ts" />
 
-declare module 'back-lib-id-generator/dist/app/IdGenerator' {
+declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 	/// <reference types="node" />
 	export type BigIdOptions = {
 	    /**
@@ -53,9 +53,9 @@ declare module 'back-lib-id-generator/dist/app/IdGenerator' {
 	}
 
 }
-declare module 'back-lib-id-generator/dist/app/IdProvider' {
-	import { IConfigurationProvider } from 'back-lib-common-contracts';
-	import { IDirectRpcCaller } from 'back-lib-service-communication';
+declare module '@micro-fleet/id-generator/dist/app/IdProvider' {
+	import { IConfigurationProvider } from '@micro-fleet/common-contracts';
+	import { IDirectRpcCaller } from '@micro-fleet/service-communication';
 	export class IdProvider implements IServiceAddOn {
 	    	    	    	    	    	    	    constructor(_configProvider: IConfigurationProvider, _rpcCaller: IDirectRpcCaller);
 	    /**
@@ -77,15 +77,15 @@ declare module 'back-lib-id-generator/dist/app/IdProvider' {
 	    	}
 
 }
-declare module 'back-lib-id-generator/dist/app/Types' {
+declare module '@micro-fleet/id-generator/dist/app/Types' {
 	export class Types {
-	    static readonly ID_PROVIDER: symbol;
+	    static readonly ID_PROVIDER: string;
 	}
 
 }
-declare module 'back-lib-id-generator' {
-	export * from 'back-lib-id-generator/dist/app/IdGenerator';
-	export * from 'back-lib-id-generator/dist/app/IdProvider';
-	export * from 'back-lib-id-generator/dist/app/Types';
+declare module '@micro-fleet/id-generator' {
+	export * from '@micro-fleet/id-generator/dist/app/IdGenerator';
+	export * from '@micro-fleet/id-generator/dist/app/IdProvider';
+	export * from '@micro-fleet/id-generator/dist/app/Types';
 
 }
