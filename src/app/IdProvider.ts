@@ -1,5 +1,5 @@
-import { IConfigurationProvider, Types as ConT, constants } from '@micro-fleet/common-contracts';
-import { injectable, inject, Guard } from '@micro-fleet/common-util';
+import { IConfigurationProvider, Types as ConT, constants,
+	injectable, inject, Guard } from '@micro-fleet/common';
 import { IDirectRpcCaller, IRpcResponse, Types as ComT } from '@micro-fleet/service-communication';
 
 import { IdGenerator } from './IdGenerator';
@@ -13,7 +13,6 @@ export class IdProvider implements IServiceAddOn {
 	private static CACHE_SIZE = 10;
 
 	private _addresses: string[];
-	private _bigIntProm: Promise<string[]>;
 
 	// TODO: Will implement remote ID generation later
 	private _idGen: IdGenerator;
@@ -31,8 +30,8 @@ export class IdProvider implements IServiceAddOn {
 	 * @see IServiceAddOn.init
 	 */
 	public init(): Promise<void> {
-		this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG);
-		this._addresses = <any>this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES);
+		this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value as string;
+		this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value as string[];
 		return Promise.resolve();
 	}
 
@@ -50,9 +49,9 @@ export class IdProvider implements IServiceAddOn {
 		return this._rpcCaller.dispose();
 	}
 
-	public fetch(): Promise<void> {
+	public async fetch(): Promise<void> {
 		for (let addr of this._addresses) {
-			if (this.attempFetch(addr)) {
+			if (await this.attempFetch(addr)) {
 				return;
 			}
 		}

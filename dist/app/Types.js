@@ -4,5 +4,4 @@ class Types {
 }
 Types.ID_PROVIDER = 'id-generator.IdProvider';
 exports.Types = Types;
-
 //# sourceMappingURL=Types.js.map

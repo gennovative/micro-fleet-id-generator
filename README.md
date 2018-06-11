@@ -21,12 +21,3 @@ See more examples and usage guide in unit test.
 
 - `gulp release`: To transpile and create `app.d.ts` definition file.
 - **Note:** Please commit transpiled code in folder `dist` and definition file `app.d.ts` relevant to the TypeScript version.
-
-## VERSIONS
-
-### 1.1.0 (Coming soon)
-- *IdProvider*: Can fetch from remote source.
-
-### 1.0.0
-- *IdProvider*: A service addon that can generates IDs.
-- *IdGenerator*: Generates bigint string, shortid, and UUID v4.

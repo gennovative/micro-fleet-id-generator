@@ -20,25 +20,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const common_contracts_1 = require("@micro-fleet/common-contracts");
-const common_util_1 = require("@micro-fleet/common-util");
+var IdProvider_1;
+"use strict";
+const common_1 = require("@micro-fleet/common");
 const service_communication_1 = require("@micro-fleet/service-communication");
 const IdGenerator_1 = require("./IdGenerator");
-const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = common_contracts_1.constants;
+const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = common_1.constants;
 let IdProvider = IdProvider_1 = class IdProvider {
     constructor(_configProvider, _rpcCaller) {
         this._configProvider = _configProvider;
         this._rpcCaller = _rpcCaller;
-        common_util_1.Guard.assertArgDefined('_configProvider', _configProvider);
-        common_util_1.Guard.assertArgDefined('_rpcCaller', _rpcCaller);
+        common_1.Guard.assertArgDefined('_configProvider', _configProvider);
+        common_1.Guard.assertArgDefined('_rpcCaller', _rpcCaller);
         this._idGen = new IdGenerator_1.IdGenerator();
     }
     /**
      * @see IServiceAddOn.init
      */
     init() {
-        this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG);
-        this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES);
+        this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value;
+        this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value;
         return Promise.resolve();
     }
     /**
@@ -54,11 +55,13 @@ let IdProvider = IdProvider_1 = class IdProvider {
         return this._rpcCaller.dispose();
     }
     fetch() {
-        for (let addr of this._addresses) {
-            if (this.attempFetch(addr)) {
-                return;
+        return __awaiter(this, void 0, void 0, function* () {
+            for (let addr of this._addresses) {
+                if (yield this.attempFetch(addr)) {
+                    return;
+                }
             }
-        }
+        });
     }
     nextBigInt() {
         return this._idGen.nextBigInt().toString();
@@ -85,12 +88,10 @@ let IdProvider = IdProvider_1 = class IdProvider {
 };
 IdProvider.CACHE_SIZE = 10;
 IdProvider = IdProvider_1 = __decorate([
-    common_util_1.injectable(),
-    __param(0, common_util_1.inject(common_contracts_1.Types.CONFIG_PROVIDER)),
-    __param(1, common_util_1.inject(service_communication_1.Types.DIRECT_RPC_CALLER)),
+    common_1.injectable(),
+    __param(0, common_1.inject(common_1.Types.CONFIG_PROVIDER)),
+    __param(1, common_1.inject(service_communication_1.Types.DIRECT_RPC_CALLER)),
     __metadata("design:paramtypes", [Object, Object])
 ], IdProvider);
 exports.IdProvider = IdProvider;
-var IdProvider_1;
-
 //# sourceMappingURL=IdProvider.js.map

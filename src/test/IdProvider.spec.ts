@@ -1,15 +1,14 @@
 import * as chai from 'chai';
 import * as spies from 'chai-spies';
-import * as _ from 'lodash';
 
-import { IConfigurationProvider, SettingItemDataType, constants } from '@micro-fleet/common-contracts';
-import { IDirectRpcCaller, IRpcResponse, Types as ComT } from '@micro-fleet/service-communication';
+import { IConfigurationProvider, SettingItemDataType, constants, Maybe } from '@micro-fleet/common';
+import { IDirectRpcCaller, IRpcResponse } from '@micro-fleet/service-communication';
 
 import { IdProvider } from '../app';
 
 chai.use(spies);
 
-const { SvcSettingKeys: S, ModuleNames: M, ActionNames: A } = constants;
+const { SvcSettingKeys: S } = constants;
 const expect = chai.expect,
 	SVC_SLUG = 'test-svc',
 	ID_SVC_ADDR = ['192.168.1.1', '192.168.1.2'];
@@ -20,11 +19,11 @@ class MockConfigAddOn implements IConfigurationProvider {
 		return true;
 	}
 
-	public get(key: string, type?: SettingItemDataType): number & boolean & string {
+	public get(key: string, type?: SettingItemDataType): Maybe<number | boolean | string | any[]> {
 		switch (key) {
-			case S.SERVICE_SLUG: return <any>SVC_SLUG;
-			case S.ID_SERVICE_ADDRESSES: return <any>ID_SVC_ADDR;
-			default: return null;
+			case S.SERVICE_SLUG: return new Maybe(SVC_SLUG);
+			case S.ID_SERVICE_ADDRESSES: return new Maybe(ID_SVC_ADDR);
+			default: return new Maybe;
 		}
 	}
 
@@ -60,7 +59,7 @@ class MockDirectRpcCaller implements IDirectRpcCaller {
 		return Promise.resolve();
 	}
 
-	public onError(handler: (err) => void): void {
+	public onError(handler: (err: any) => void): void {
 	}
 
 	public call(moduleName: string, action: string, params?: any): Promise<IRpcResponse> {

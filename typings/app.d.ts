@@ -1,5 +1,4 @@
 /// <reference path="./global.d.ts" />
-
 declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 	/// <reference types="node" />
 	export type BigIdOptions = {
@@ -54,10 +53,10 @@ declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 
 }
 declare module '@micro-fleet/id-generator/dist/app/IdProvider' {
-	import { IConfigurationProvider } from '@micro-fleet/common-contracts';
+	import { IConfigurationProvider } from '@micro-fleet/common';
 	import { IDirectRpcCaller } from '@micro-fleet/service-communication';
 	export class IdProvider implements IServiceAddOn {
-	    	    	    	    	    	    	    constructor(_configProvider: IConfigurationProvider, _rpcCaller: IDirectRpcCaller);
+	    	    	    	    	    	    constructor(_configProvider: IConfigurationProvider, _rpcCaller: IDirectRpcCaller);
 	    /**
 	     * @see IServiceAddOn.init
 	     */

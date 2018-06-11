@@ -1,6 +1,5 @@
 import * as chai from 'chai';
 import * as spies from 'chai-spies';
-import { Int64BE } from 'int64-buffer';
 
 import { IdGenerator } from '../app';
 
@@ -50,7 +49,6 @@ describe('IdGenerator', () => {
 
 			// Act
 			let bigId = idGen.wrapBigInt(input);
-			let another = new Int64BE(input);
 
 			// Assert
 			expect(bigId.toNumber()).to.equal(parseInt(input));
