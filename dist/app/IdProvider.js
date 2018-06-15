@@ -11,14 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var IdProvider_1;
 "use strict";
@@ -54,14 +46,12 @@ let IdProvider = IdProvider_1 = class IdProvider {
     dispose() {
         return this._rpcCaller.dispose();
     }
-    fetch() {
-        return __awaiter(this, void 0, void 0, function* () {
-            for (let addr of this._addresses) {
-                if (yield this.attempFetch(addr)) {
-                    return;
-                }
+    async fetch() {
+        for (let addr of this._addresses) {
+            if (await this.attempFetch(addr)) {
+                return;
             }
-        });
+        }
     }
     nextBigInt() {
         return this._idGen.nextBigInt().toString();
@@ -72,17 +62,15 @@ let IdProvider = IdProvider_1 = class IdProvider {
     nextUuidv4() {
         return this._idGen.nextUuidv4();
     }
-    attempFetch(address) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this._rpcCaller.baseAddress = address;
-            return this._rpcCaller.call(M.ID_GEN, A.NEXT_BIG_INT, {
-                service: this._rpcCaller.name,
-                count: IdProvider_1.CACHE_SIZE
-            })
-                .then((res) => {
-                // resolve(<any>res.data);
-                return true;
-            });
+    async attempFetch(address) {
+        this._rpcCaller.baseAddress = address;
+        return this._rpcCaller.call(M.ID_GEN, A.NEXT_BIG_INT, {
+            service: this._rpcCaller.name,
+            count: IdProvider_1.CACHE_SIZE
+        })
+            .then((res) => {
+            // resolve(<any>res.data);
+            return true;
         });
     }
 };
