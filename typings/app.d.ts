@@ -52,11 +52,12 @@ declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 	}
 
 }
-declare module '@micro-fleet/id-generator/dist/app/IdProvider' {
+declare module '@micro-fleet/id-generator/dist/app/IdProviderAddOn' {
 	import { IConfigurationProvider } from '@micro-fleet/common';
 	import { IDirectRpcCaller } from '@micro-fleet/service-communication';
-	export class IdProvider implements IServiceAddOn {
-	    	    	    	    	    	    constructor(_configProvider: IConfigurationProvider, _rpcCaller: IDirectRpcCaller);
+	export class IdProviderAddOn implements IServiceAddOn {
+	    	    	    readonly name: string;
+	    	    	    	    constructor(_configProvider: IConfigurationProvider, _rpcCaller: IDirectRpcCaller);
 	    /**
 	     * @see IServiceAddOn.init
 	     */
@@ -84,7 +85,7 @@ declare module '@micro-fleet/id-generator/dist/app/Types' {
 }
 declare module '@micro-fleet/id-generator' {
 	export * from '@micro-fleet/id-generator/dist/app/IdGenerator';
-	export * from '@micro-fleet/id-generator/dist/app/IdProvider';
+	export * from '@micro-fleet/id-generator/dist/app/IdProviderAddOn';
 	export * from '@micro-fleet/id-generator/dist/app/Types';
 
 }

@@ -12,16 +12,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var IdProvider_1;
+var IdProviderAddOn_1;
 "use strict";
 const common_1 = require("@micro-fleet/common");
 const service_communication_1 = require("@micro-fleet/service-communication");
 const IdGenerator_1 = require("./IdGenerator");
 const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = common_1.constants;
-let IdProvider = IdProvider_1 = class IdProvider {
+let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
     constructor(_configProvider, _rpcCaller) {
         this._configProvider = _configProvider;
         this._rpcCaller = _rpcCaller;
+        this.name = 'IdProviderAddOn';
         common_1.Guard.assertArgDefined('_configProvider', _configProvider);
         common_1.Guard.assertArgDefined('_rpcCaller', _rpcCaller);
         this._idGen = new IdGenerator_1.IdGenerator();
@@ -66,7 +67,7 @@ let IdProvider = IdProvider_1 = class IdProvider {
         this._rpcCaller.baseAddress = address;
         return this._rpcCaller.call(M.ID_GEN, A.NEXT_BIG_INT, {
             service: this._rpcCaller.name,
-            count: IdProvider_1.CACHE_SIZE
+            count: IdProviderAddOn_1.CACHE_SIZE
         })
             .then((res) => {
             // resolve(<any>res.data);
@@ -74,12 +75,12 @@ let IdProvider = IdProvider_1 = class IdProvider {
         });
     }
 };
-IdProvider.CACHE_SIZE = 10;
-IdProvider = IdProvider_1 = __decorate([
+IdProviderAddOn.CACHE_SIZE = 10;
+IdProviderAddOn = IdProviderAddOn_1 = __decorate([
     common_1.injectable(),
     __param(0, common_1.inject(common_1.Types.CONFIG_PROVIDER)),
     __param(1, common_1.inject(service_communication_1.Types.DIRECT_RPC_CALLER)),
     __metadata("design:paramtypes", [Object, Object])
-], IdProvider);
-exports.IdProvider = IdProvider;
-//# sourceMappingURL=IdProvider.js.map
+], IdProviderAddOn);
+exports.IdProviderAddOn = IdProviderAddOn;
+//# sourceMappingURL=IdProviderAddOn.js.map
