@@ -75,14 +75,22 @@ let idProd: IdProviderAddOn;
 describe('IdProvider', () => {
 
 	beforeEach(() => {
-		idProd = new IdProviderAddOn(new MockConfigAddOn(), new MockDirectRpcCaller());
+		idProd = new IdProviderAddOn();
+		idProd['_configProvider'] = new MockConfigAddOn();
+		idProd['_rpcCaller'] = new MockDirectRpcCaller();
 		return idProd.init();
+	});
+
+	afterEach(() => {
+		return idProd.dispose();
 	});
 
 	describe('init', () => {
 		it('should init RPC caller', async () => {
 			// Arrange
-			let idProd = new IdProviderAddOn(new MockConfigAddOn(), new MockDirectRpcCaller());
+			const idProd = new IdProviderAddOn();
+			idProd['_configProvider'] = new MockConfigAddOn();
+			idProd['_rpcCaller'] = new MockDirectRpcCaller();
 
 			// Act
 			await idProd.init();
@@ -96,7 +104,7 @@ describe('IdProvider', () => {
 	describe('dispose', () => {
 		it('should release all resources', async () => {
 			// Arrange
-			let disposeSpy = chai.spy.on(idProd['_rpcCaller'], 'dispose');
+			const disposeSpy = chai.spy.on(idProd['_rpcCaller'], 'dispose');
 
 			// Act
 			await idProd.dispose();
@@ -110,7 +118,7 @@ describe('IdProvider', () => {
 	describe('nextBigInt', () => {
 		it('should return a big int string', async () => {
 			// Act
-			let id = idProd.nextBigInt();
+			const id = idProd.nextBigInt();
 
 			// Assert
 			console.log('Big Int: ', id);
@@ -122,7 +130,7 @@ describe('IdProvider', () => {
 	describe('nextShortId', () => {
 		it('should return a short ID string', async () => {
 			// Act
-			let id = idProd.nextShortId();
+			const id = idProd.nextShortId();
 
 			// Assert
 			console.log('Short ID: ', id);
@@ -134,7 +142,7 @@ describe('IdProvider', () => {
 	describe('nextUuidv4', () => {
 		it('should return a version-4 UUID string', async () => {
 			// Act
-			let id = idProd.nextUuidv4();
+			const id = idProd.nextUuidv4();
 
 			// Assert
 			console.log('UUID V6: ', id);

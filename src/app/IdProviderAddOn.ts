@@ -1,5 +1,5 @@
 import { IConfigurationProvider, Types as ConT, constants,
-	injectable, inject, Guard } from '@micro-fleet/common';
+	injectable, lazyInject } from '@micro-fleet/common';
 import { IDirectRpcCaller, IRpcResponse, Types as ComT } from '@micro-fleet/service-communication';
 
 import { IdGenerator } from './IdGenerator';
@@ -19,12 +19,11 @@ export class IdProviderAddOn implements IServiceAddOn {
 	// TODO: Will implement remote ID generation later
 	private _idGen: IdGenerator;
 
+	@lazyInject(ConT.CONFIG_PROVIDER) private _configProvider: IConfigurationProvider;
+	@lazyInject(ComT.DIRECT_RPC_CALLER) private _rpcCaller: IDirectRpcCaller;
+
 	constructor(
-		@inject(ConT.CONFIG_PROVIDER) private _configProvider: IConfigurationProvider,
-		@inject(ComT.DIRECT_RPC_CALLER) private _rpcCaller: IDirectRpcCaller
 	) {
-		Guard.assertArgDefined('_configProvider', _configProvider);
-		Guard.assertArgDefined('_rpcCaller', _rpcCaller);
 		this._idGen = new IdGenerator();
 	}
 
