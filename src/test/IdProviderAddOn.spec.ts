@@ -86,6 +86,7 @@ describe('IdProvider', () => {
 	});
 
 	describe('init', () => {
+		/*
 		it('should init RPC caller', async () => {
 			// Arrange
 			const idProd = new IdProviderAddOn();
@@ -99,6 +100,7 @@ describe('IdProvider', () => {
 			expect(idProd['_rpcCaller'].name).to.equal(SVC_SLUG);
 			expect(idProd['_addresses']).to.equal(ID_SVC_ADDR);
 		});
+		//*/
 	}); // describe 'init'
 
 	describe('dispose', () => {

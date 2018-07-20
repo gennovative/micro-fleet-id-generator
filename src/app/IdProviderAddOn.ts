@@ -1,11 +1,12 @@
 import { IConfigurationProvider, Types as ConT, constants,
 	injectable, lazyInject } from '@micro-fleet/common';
-import { IDirectRpcCaller, IRpcResponse, Types as ComT } from '@micro-fleet/service-communication';
 
 import { IdGenerator } from './IdGenerator';
 
 const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = constants;
 
+type IDirectRpcCaller = import('@micro-fleet/service-communication').IDirectRpcCaller;
+type IRpcResponse = import('@micro-fleet/service-communication').IRpcResponse;
 
 @injectable()
 export class IdProviderAddOn implements IServiceAddOn {
@@ -19,8 +20,12 @@ export class IdProviderAddOn implements IServiceAddOn {
 	// TODO: Will implement remote ID generation later
 	private _idGen: IdGenerator;
 
-	@lazyInject(ConT.CONFIG_PROVIDER) private _configProvider: IConfigurationProvider;
-	@lazyInject(ComT.DIRECT_RPC_CALLER) private _rpcCaller: IDirectRpcCaller;
+	@lazyInject(ConT.CONFIG_PROVIDER) 
+	private _configProvider: IConfigurationProvider;
+
+	// @lazyInject(ComT.DIRECT_RPC_CALLER) 
+	@lazyInject('service-communication.IDirectRpcCaller') 
+	private _rpcCaller: IDirectRpcCaller;
 
 	constructor(
 	) {
@@ -31,8 +36,6 @@ export class IdProviderAddOn implements IServiceAddOn {
 	 * @see IServiceAddOn.init
 	 */
 	public init(): Promise<void> {
-		this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value as string;
-		this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value as string[];
 		return Promise.resolve();
 	}
 
@@ -47,10 +50,16 @@ export class IdProviderAddOn implements IServiceAddOn {
 	 * @see IServiceAddOn.dispose
 	 */
 	public dispose(): Promise<void> {
+		if (!this._rpcCaller) {
+			return Promise.resolve();
+		}
 		return this._rpcCaller.dispose();
 	}
 
 	public async fetch(): Promise<void> {
+		this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value as string;
+		this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value as string[];
+
 		for (let addr of this._addresses) {
 			if (await this.attempFetch(addr)) {
 				return;

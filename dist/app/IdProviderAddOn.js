@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var IdProviderAddOn_1;
 "use strict";
 const common_1 = require("@micro-fleet/common");
-const service_communication_1 = require("@micro-fleet/service-communication");
 const IdGenerator_1 = require("./IdGenerator");
 const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = common_1.constants;
 let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
@@ -24,8 +23,6 @@ let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
      * @see IServiceAddOn.init
      */
     init() {
-        this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value;
-        this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value;
         return Promise.resolve();
     }
     /**
@@ -38,9 +35,14 @@ let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
      * @see IServiceAddOn.dispose
      */
     dispose() {
+        if (!this._rpcCaller) {
+            return Promise.resolve();
+        }
         return this._rpcCaller.dispose();
     }
     async fetch() {
+        this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value;
+        this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value;
         for (let addr of this._addresses) {
             if (await this.attempFetch(addr)) {
                 return;
@@ -74,7 +76,7 @@ __decorate([
     __metadata("design:type", Object)
 ], IdProviderAddOn.prototype, "_configProvider", void 0);
 __decorate([
-    common_1.lazyInject(service_communication_1.Types.DIRECT_RPC_CALLER),
+    common_1.lazyInject('service-communication.IDirectRpcCaller'),
     __metadata("design:type", Object)
 ], IdProviderAddOn.prototype, "_rpcCaller", void 0);
 IdProviderAddOn = IdProviderAddOn_1 = __decorate([
