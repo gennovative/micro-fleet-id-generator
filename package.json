@@ -1,7 +1,7 @@
 {
 	"name": "@micro-fleet/id-generator",
-	"description": "Provides methods to generate database primary key ID..",
-	"version": "1.0.1",
+	"description": "Provides methods to generate database primary key ID.",
+	"version": "1.0.2",
 	"scripts": {
 		"build": "npm run compile && npm run test",
 		"clean": "rimraf dist coverage .nyc_output",
@@ -11,6 +11,7 @@
 		"release": "npm run build && npm run definition",
 		"test": "nyc --reporter=json --reporter=html --include dist/app/**/*.js mocha --recursive dist/test",
 		"tslint": "tslint -c tslint.json 'src/**/*.ts'",
+		"prepublish": "npm run release",
 		"watch": "npm run clean && npm run tslint && tsc --watch --pretty"
 	},
 	"dependencies": {
@@ -30,7 +31,7 @@
 		"url": "https://github.com/gennovative"
 	},
 	"engines": {
-		"node": "^8"
+		"node": ">=8.0.0"
 	},
 	"license": "MIT",
 	"private": false,
