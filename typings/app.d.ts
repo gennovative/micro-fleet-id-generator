@@ -37,7 +37,7 @@ declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 	    /**
 	     * Generates a new big int ID.
 	     */
-	    nextBigInt(): Int64;
+	    nextBigInt(): bigint;
 	    /**
 	     * Generates a 7-character UID.
 	     */
@@ -46,9 +46,11 @@ declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 	     * Generates a version-4 UUID.
 	     */
 	    nextUuidv4(): string;
-	    wrapBigInt(value: string, radix?: number): Int64;
-	    wrapBigInt(buf: Buffer): Int64;
-	    wrapBigInt(value?: number): Int64;
+	    /**
+	     * Parses input value into bigint type.
+	     * @param value The value to be wrapped. If not given, the behavior is same with `next()`.
+	     */
+	    wrapBigInt(value?: string | number | Buffer): bigint;
 	}
 
 }
@@ -77,7 +79,7 @@ declare module '@micro-fleet/id-generator/dist/app/IdProviderAddOn' {
 }
 declare module '@micro-fleet/id-generator/dist/app/Types' {
 	export class Types {
-	    static readonly ID_PROVIDER: string;
+	    static readonly ID_PROVIDER = "id-generator.IdProvider";
 	}
 
 }

@@ -43,6 +43,7 @@ let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
     async fetch() {
         this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value;
         this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value;
+        // tslint:disable-next-line:prefer-const
         for (let addr of this._addresses) {
             if (await this.attempFetch(addr)) {
                 return;
@@ -62,10 +63,10 @@ let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
         this._rpcCaller.baseAddress = address;
         return this._rpcCaller.call(M.ID_GEN, A.NEXT_BIG_INT, {
             service: this._rpcCaller.name,
-            count: IdProviderAddOn_1.CACHE_SIZE
+            count: IdProviderAddOn_1.CACHE_SIZE,
         })
             .then((res) => {
-            // resolve(<any>res.data);
+            // resolve(<any>res.data)
             return true;
         });
     }

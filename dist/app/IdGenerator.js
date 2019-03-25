@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const FlakeId = require("flake-idgen");
 const shortid = require("shortid");
-const int64_buffer_1 = require("int64-buffer");
 const uuidv4 = require("uuid/v4");
 /**
  * Provides methods to generate bigint ID
@@ -18,7 +17,7 @@ class IdGenerator {
      * Generates a new big int ID.
      */
     nextBigInt() {
-        return new int64_buffer_1.Int64BE(this._generator.next());
+        return bufferToBigInt(this._generator.next());
     }
     /**
      * Generates a 7-character UID.
@@ -32,17 +31,43 @@ class IdGenerator {
     nextUuidv4() {
         return uuidv4();
     }
+    // public wrapBigInt(value: string): Int64
+    // public wrapBigInt(buf: Buffer): Int64
+    // public wrapBigInt(value?: number): Int64
     /**
      * Parses input value into bigint type.
      * @param value The value to be wrapped. If not given, the behavior is same with `next()`.
      */
-    wrapBigInt() {
-        if (!arguments.length) {
+    wrapBigInt(value) {
+        if (value == null) {
             return this.nextBigInt();
         }
-        // Equivalent with `new Int64BE(....)`
-        return int64_buffer_1.Int64BE.apply(null, arguments);
+        switch (typeof value) {
+            case 'bigint':
+                return value;
+            case 'string':
+            case 'number':
+                return BigInt(value);
+            default:
+                if (value instanceof Buffer) {
+                    return bufferToBigInt(value);
+                }
+                return BigInt(value);
+        }
     }
 }
 exports.IdGenerator = IdGenerator;
+/**
+ * Converts a buffer to bigint
+ */
+function bufferToBigInt(buffer) {
+    // Eg: Buffer <5A, 6D, 1C, 38, 2C, 00, 00, 00>
+    // value = (0x5A << 7) + (0x6D << 6) ....
+    const BITS_PER_BYTE = 8n;
+    const result = [...buffer].reduce((prev, cur, idx, arr) => {
+        const reversedIdx = BigInt(arr.length - 1 - idx);
+        return prev + (BigInt(cur) << (reversedIdx * BITS_PER_BYTE));
+    }, 0n);
+    return result;
+}
 //# sourceMappingURL=IdGenerator.js.map
