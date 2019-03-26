@@ -1,7 +1,10 @@
 ## VERSIONS
 
-### 1.1.0 (Coming soon)
+### 1.2.0 (Coming soon)
 - *IdProvider*: Can fetch from remote source.
+
+### 1.1.0
+- `IdGenerator.nextBigInt()` now returns native BigInt.
 
 ### 1.0.2
 - Fixed node engine version in package.json.
