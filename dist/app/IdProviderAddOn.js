@@ -9,12 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var IdProviderAddOn_1;
-"use strict";
 const common_1 = require("@micro-fleet/common");
 const IdGenerator_1 = require("./IdGenerator");
-const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = common_1.constants;
-let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
+// const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = constants
+// type IDirectRpcCaller = import('@micro-fleet/service-communication').IDirectRpcCaller
+// type IRpcResponse = import('@micro-fleet/service-communication').IRpcResponse
+let IdProviderAddOn = class IdProviderAddOn {
+    // @lazyInject(ConT.CONFIG_PROVIDER)
+    // private _configProvider: IConfigurationProvider
+    // @lazyInject(ComT.DIRECT_RPC_CALLER)
+    // @lazyInject('service-communication.IDirectRpcCaller')
+    // private _rpcCaller: IDirectRpcCaller
     constructor() {
         this.name = 'IdProviderAddOn';
         this._idGen = new IdGenerator_1.IdGenerator();
@@ -35,21 +40,22 @@ let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
      * @see IServiceAddOn.dispose
      */
     dispose() {
-        if (!this._rpcCaller) {
-            return Promise.resolve();
-        }
-        return this._rpcCaller.dispose();
+        return Promise.resolve();
+        // if (!this._rpcCaller) {
+        //     return Promise.resolve()
+        // }
+        // return this._rpcCaller.dispose()
     }
-    async fetch() {
-        this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value;
-        this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value;
-        // tslint:disable-next-line:prefer-const
-        for (let addr of this._addresses) {
-            if (await this.attempFetch(addr)) {
-                return;
-            }
-        }
-    }
+    // public async fetch(): Promise<void> {
+    //     this._rpcCaller.name = this._configProvider.get(SvcS.SERVICE_SLUG).value as string
+    //     this._addresses = this._configProvider.get(SvcS.ID_SERVICE_ADDRESSES).value as string[]
+    //     // tslint:disable-next-line:prefer-const
+    //     for (let addr of this._addresses) {
+    //         if (await this.attempFetch(addr)) {
+    //             return
+    //         }
+    //     }
+    // }
     nextBigInt() {
         return this._idGen.nextBigInt().toString();
     }
@@ -59,28 +65,8 @@ let IdProviderAddOn = IdProviderAddOn_1 = class IdProviderAddOn {
     nextUuidv4() {
         return this._idGen.nextUuidv4();
     }
-    async attempFetch(address) {
-        this._rpcCaller.baseAddress = address;
-        return this._rpcCaller.call(M.ID_GEN, A.NEXT_BIG_INT, {
-            service: this._rpcCaller.name,
-            count: IdProviderAddOn_1.CACHE_SIZE,
-        })
-            .then((res) => {
-            // resolve(<any>res.data)
-            return true;
-        });
-    }
 };
-IdProviderAddOn.CACHE_SIZE = 10;
-__decorate([
-    common_1.lazyInject(common_1.Types.CONFIG_PROVIDER),
-    __metadata("design:type", Object)
-], IdProviderAddOn.prototype, "_configProvider", void 0);
-__decorate([
-    common_1.lazyInject('service-communication.IDirectRpcCaller'),
-    __metadata("design:type", Object)
-], IdProviderAddOn.prototype, "_rpcCaller", void 0);
-IdProviderAddOn = IdProviderAddOn_1 = __decorate([
+IdProviderAddOn = __decorate([
     common_1.injectable(),
     __metadata("design:paramtypes", [])
 ], IdProviderAddOn);

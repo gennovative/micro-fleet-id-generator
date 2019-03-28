@@ -57,7 +57,7 @@ declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 declare module '@micro-fleet/id-generator/dist/app/IdProviderAddOn' {
 	export class IdProviderAddOn implements IServiceAddOn {
 	    readonly name: string;
-	    	    	    	    	    	    constructor();
+	    	    constructor();
 	    /**
 	     * @see IServiceAddOn.init
 	     */
@@ -70,11 +70,10 @@ declare module '@micro-fleet/id-generator/dist/app/IdProviderAddOn' {
 	     * @see IServiceAddOn.dispose
 	     */
 	    dispose(): Promise<void>;
-	    fetch(): Promise<void>;
 	    nextBigInt(): string;
 	    nextShortId(): string;
 	    nextUuidv4(): string;
-	    	}
+	}
 
 }
 declare module '@micro-fleet/id-generator/dist/app/Types' {

@@ -2,7 +2,7 @@ import * as chai from 'chai'
 import * as spies from 'chai-spies'
 
 import { IConfigurationProvider, SettingItemDataType, constants, Maybe } from '@micro-fleet/common'
-import { IDirectRpcCaller, IRpcResponse } from '@micro-fleet/service-communication'
+// import { IDirectRpcCaller, IRpcResponse } from '@micro-fleet/service-communication'
 
 import { IdProviderAddOn } from '../app'
 
@@ -50,28 +50,28 @@ class MockConfigAddOn implements IConfigurationProvider {
     }
 }
 
-class MockDirectRpcCaller implements IDirectRpcCaller {
-    public baseAddress: string
-    public name: string
-    public timeout: number
+// class MockDirectRpcCaller implements IDirectRpcCaller {
+//     public baseAddress: string
+//     public name: string
+//     public timeout: number
 
-    public init(params?: any): any {
-        // Empty
-    }
+//     public init(params?: any): any {
+//         // Empty
+//     }
 
-    public dispose(): Promise<void> {
-        return Promise.resolve()
-    }
+//     public dispose(): Promise<void> {
+//         return Promise.resolve()
+//     }
 
-    public onError(handler: (err: any) => void): void {
-        // Empty
-    }
+//     public onError(handler: (err: any) => void): void {
+//         // Empty
+//     }
 
-    public call(moduleName: string, action: string, params?: any): Promise<IRpcResponse> {
-        return Promise.resolve(null)
-    }
+//     public call(moduleName: string, action: string, params?: any): Promise<IRpcResponse> {
+//         return Promise.resolve(null)
+//     }
 
-}
+// }
 
 let idProd: IdProviderAddOn
 
@@ -80,7 +80,7 @@ describe('IdProvider', () => {
     beforeEach(() => {
         idProd = new IdProviderAddOn()
         idProd['_configProvider'] = new MockConfigAddOn()
-        idProd['_rpcCaller'] = new MockDirectRpcCaller()
+        // idProd['_rpcCaller'] = new MockDirectRpcCaller()
         return idProd.init()
     })
 
