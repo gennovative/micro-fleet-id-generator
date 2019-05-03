@@ -1,7 +1,7 @@
 {
     "name": "@micro-fleet/id-generator",
     "description": "Provides methods to generate database primary key ID.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "scripts": {
         "build": "npm run compile && npm run test",
         "clean": "rimraf dist coverage .nyc_output",
@@ -13,7 +13,6 @@
         "lint": "tslint --fix 'src/**/*.ts'",
         "watch": "npm run clean && npm run lint && tsc --watch --pretty",
         "linkPackages": "node ../../../scripts/linkPackages.js",
-        "postinstall": "npm run linkPackages",
         "prepublishOnly": "npm run release"
     },
     "dependencies": {

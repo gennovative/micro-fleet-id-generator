@@ -3,6 +3,9 @@
 ### 1.2.0 (Coming soon)
 - *IdProvider*: Can fetch from remote source.
 
+### 1.1.1
+- Remove script "postinstall" from `package.json`.
+
 ### 1.1.0
 - `IdGenerator.nextBigInt()` now returns native BigInt.
 
