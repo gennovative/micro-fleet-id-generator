@@ -57,7 +57,7 @@ let IdProviderAddOn = class IdProviderAddOn {
     //     }
     // }
     nextBigInt() {
-        return this._idGen.nextBigInt().toString();
+        return this._idGen.nextBigInt();
     }
     nextShortId() {
         return this._idGen.nextShortId();

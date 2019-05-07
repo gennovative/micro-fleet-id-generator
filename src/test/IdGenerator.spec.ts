@@ -7,8 +7,15 @@ import { IdGenerator } from '../app'
 chai.use(spies)
 const expect = chai.expect
 
-describe.only('IdGenerator', () => {
+describe('IdGenerator', () => {
     describe('nextBigInt', () => {
+        it('Should return bigint type', () => {
+            const idGen = new IdGenerator()
+            const result = idGen.nextBigInt()
+            console.log(result)
+            expect(typeof result).equal('bigint')
+        })
+
         it('Should generate different numbers on each call', () => {
             const idGen = new IdGenerator()
             expect(idGen.nextBigInt()).not.to.equal(idGen.nextBigInt())
@@ -16,6 +23,14 @@ describe.only('IdGenerator', () => {
     }) // END describe 'nextBigInt'
 
     describe('nextShortId', () => {
+        it('Should return a string', () => {
+            const idGen = new IdGenerator({ worker: 2 })
+            const result = idGen.nextShortId()
+            console.log(result)
+            expect(result).not.to.be.string
+            expect(result.length >= 7 && result.length <= 14).to.be.true
+        })
+
         it('Should generate different numbers on each call', () => {
             const idGen = new IdGenerator({ worker: 2 })
             expect(idGen.nextShortId()).not.to.equal(idGen.nextShortId())
@@ -23,6 +38,17 @@ describe.only('IdGenerator', () => {
     }) // END describe 'nextShortId'
 
     describe('nextUuidv4', () => {
+        it('Should return a string', () => {
+            const idGen = new IdGenerator()
+            const result = idGen.nextUuidv4() // b34c842e-7eca-4504-9999-c7ac3523649c
+            console.log(result)
+            expect(result).to.be.string
+            // UUID v4 should have 37 characters in length
+            expect(result.length).to.equal(36)
+            // UUID v4 should have third part starting with "4"
+            expect(result.split('-')[2].charAt(0)).to.equal('4')
+        })
+
         it('Should generate different numbers on each call', () => {
             const idGen = new IdGenerator()
             expect(idGen.nextUuidv4()).not.to.equal(idGen.nextUuidv4())

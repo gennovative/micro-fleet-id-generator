@@ -69,8 +69,8 @@ export class IdProviderAddOn implements IServiceAddOn {
     //     }
     // }
 
-    public nextBigInt(): string {
-        return this._idGen.nextBigInt().toString()
+    public nextBigInt(): bigint {
+        return this._idGen.nextBigInt()
     }
 
     public nextShortId(): string {

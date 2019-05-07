@@ -70,7 +70,7 @@ declare module '@micro-fleet/id-generator/dist/app/IdProviderAddOn' {
 	     * @see IServiceAddOn.dispose
 	     */
 	    dispose(): Promise<void>;
-	    nextBigInt(): string;
+	    nextBigInt(): bigint;
 	    nextShortId(): string;
 	    nextUuidv4(): string;
 	}

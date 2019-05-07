@@ -106,29 +106,28 @@ describe('IdProvider', () => {
         //*/
     }) // describe 'init'
 
-    describe('dispose', () => {
-        it('should release all resources', async () => {
-            // Arrange
-            const disposeSpy = chai.spy.on(idProd['_rpcCaller'], 'dispose')
+    // describe('dispose', () => {
+    //     it('should release all resources', async () => {
+    //         // Arrange
+    //         const disposeSpy = chai.spy.on(idProd['_rpcCaller'], 'dispose')
 
-            // Act
-            await idProd.dispose()
+    //         // Act
+    //         await idProd.dispose()
 
-            // Assert
+    //         // Assert
 
-            expect(disposeSpy).to.be.called
-        })
-    }) // describe 'dispose'
+    //         expect(disposeSpy).to.be.called
+    //     })
+    // }) // describe 'dispose'
 
     describe('nextBigInt', () => {
-        it('should return a big int string', async () => {
+        it('should return a bigint', async () => {
             // Act
             const id = idProd.nextBigInt()
 
             // Assert
-            console.log('Big Int: ', id)
-            expect(id).to.be.string
-            expect(id).not.to.be.empty
+            console.log(id)
+            expect(typeof id).equal('bigint')
         })
     }) // describe 'nextBigInt'
 
@@ -138,7 +137,7 @@ describe('IdProvider', () => {
             const id = idProd.nextShortId()
 
             // Assert
-            console.log('Short ID: ', id)
+            console.log(id)
             expect(id).to.be.string
             expect(id).not.to.be.empty
         })
@@ -150,7 +149,7 @@ describe('IdProvider', () => {
             const id = idProd.nextUuidv4()
 
             // Assert
-            console.log('UUID V6: ', id)
+            console.log(id)
             expect(id).to.be.string
             expect(id).not.to.be.empty
         })
