@@ -3,6 +3,9 @@
 ### 1.2.0 (Coming soon)
 - *IdProvider*: Can fetch from remote source.
 
+### 1.1.3
+- Upgraded to new version of `@micro-fleet/common` with breaking change.
+
 ### 1.1.2
 - Fixed [#1](https://github.com/gennovative/micro-fleet-web/issues/1) - IdProviderAddOn should return bigint type.
 

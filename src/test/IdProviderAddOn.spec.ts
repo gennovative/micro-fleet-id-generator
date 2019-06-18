@@ -23,9 +23,9 @@ class MockConfigAddOn implements IConfigurationProvider {
 
     public get(key: string, type?: SettingItemDataType): Maybe<number | boolean | string | any[]> {
         switch (key) {
-            case S.SERVICE_SLUG: return new Maybe(SVC_SLUG)
-            case S.ID_SERVICE_ADDRESSES: return new Maybe(ID_SVC_ADDR)
-            default: return new Maybe
+            case S.SERVICE_SLUG: return Maybe.Just(SVC_SLUG)
+            case S.ID_SERVICE_ADDRESSES: return Maybe.Just(ID_SVC_ADDR)
+            default: return Maybe.Nothing()
         }
     }
 
