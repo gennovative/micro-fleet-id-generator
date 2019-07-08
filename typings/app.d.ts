@@ -55,7 +55,21 @@ declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 
 }
 declare module '@micro-fleet/id-generator/dist/app/IdProviderAddOn' {
-	export class IdProviderAddOn implements IServiceAddOn {
+	export interface IIdProvider {
+	    /**
+	     * Generates a chronologically sequential native bigint with Snowflake algorithm.
+	     */
+	    nextBigInt(): bigint;
+	    /**
+	     * Generates a random string of length from 7 to 14 url-friendly characters.
+	     */
+	    nextShortId(): string;
+	    /**
+	     * Generates a v4 universally unique identifier.
+	     */
+	    nextUuidv4(): string;
+	}
+	export class IdProviderAddOn implements IIdProvider, IServiceAddOn {
 	    readonly name: string;
 	    	    constructor();
 	    /**
@@ -70,8 +84,17 @@ declare module '@micro-fleet/id-generator/dist/app/IdProviderAddOn' {
 	     * @see IServiceAddOn.dispose
 	     */
 	    dispose(): Promise<void>;
+	    /**
+	     * @see IIdProvider.nextBigInt
+	     */
 	    nextBigInt(): bigint;
+	    /**
+	     * @see IIdProvider.nextShortId
+	     */
 	    nextShortId(): string;
+	    /**
+	     * @see IIdProvider.nextUuidv4
+	     */
 	    nextUuidv4(): string;
 	}
 
@@ -82,12 +105,23 @@ declare module '@micro-fleet/id-generator/dist/app/Types' {
 	}
 
 }
+declare module '@micro-fleet/id-generator/dist/app/constants' {
+	export enum IdSettingKeys {
+	    /**
+	     * Array of addresses to fetch IDs.
+	     * Data type: string[]
+	     */
+	    ID_SERVICE_ADDRESSES = "id_service_addresses"
+	}
+
+}
 declare module '@micro-fleet/id-generator/dist/app/register-addon' {
 	import { IdProviderAddOn } from '@micro-fleet/id-generator/dist/app/IdProviderAddOn';
 	export function registerIdAddOn(): IdProviderAddOn;
 
 }
 declare module '@micro-fleet/id-generator' {
+	export * from '@micro-fleet/id-generator/dist/app/constants';
 	export * from '@micro-fleet/id-generator/dist/app/IdGenerator';
 	export * from '@micro-fleet/id-generator/dist/app/IdProviderAddOn';
 	export * from '@micro-fleet/id-generator/dist/app/register-addon';

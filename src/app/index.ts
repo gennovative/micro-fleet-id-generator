@@ -1,3 +1,4 @@
+export * from './constants'
 export * from './IdGenerator'
 export * from './IdProviderAddOn'
 export * from './register-addon'

@@ -4,7 +4,7 @@ import * as spies from 'chai-spies'
 import { IConfigurationProvider, SettingItemDataType, constants, Maybe } from '@micro-fleet/common'
 // import { IDirectRpcCaller, IRpcResponse } from '@micro-fleet/service-communication'
 
-import { IdProviderAddOn } from '../app'
+import { IdProviderAddOn, IdSettingKeys as IDS } from '../app'
 
 chai.use(spies)
 
@@ -17,14 +17,14 @@ class MockConfigAddOn implements IConfigurationProvider {
 
     public readonly name: string = 'MockConfigAddOnks'
 
-    get enableRemote(): boolean {
-        return true
-    }
+    public configFilePath: string
+
+    public readonly enableRemote: boolean = true
 
     public get(key: string, type?: SettingItemDataType): Maybe<number | boolean | string | any[]> {
         switch (key) {
             case S.SERVICE_SLUG: return Maybe.Just(SVC_SLUG)
-            case S.ID_SERVICE_ADDRESSES: return Maybe.Just(ID_SVC_ADDR)
+            case IDS.ID_SERVICE_ADDRESSES: return Maybe.Just(ID_SVC_ADDR)
             default: return Maybe.Nothing()
         }
     }

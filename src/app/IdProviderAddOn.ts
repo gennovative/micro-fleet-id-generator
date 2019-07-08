@@ -8,8 +8,25 @@ import { IdGenerator } from './IdGenerator'
 // type IDirectRpcCaller = import('@micro-fleet/service-communication').IDirectRpcCaller
 // type IRpcResponse = import('@micro-fleet/service-communication').IRpcResponse
 
+export interface IIdProvider {
+    /**
+     * Generates a chronologically sequential native bigint with Snowflake algorithm.
+     */
+    nextBigInt(): bigint
+
+    /**
+     * Generates a random string of length from 7 to 14 url-friendly characters.
+     */
+    nextShortId(): string
+
+    /**
+     * Generates a v4 universally unique identifier.
+     */
+    nextUuidv4(): string
+}
+
 @injectable()
-export class IdProviderAddOn implements IServiceAddOn {
+export class IdProviderAddOn implements IIdProvider, IServiceAddOn {
 
     public readonly name: string = 'IdProviderAddOn'
 
@@ -69,14 +86,24 @@ export class IdProviderAddOn implements IServiceAddOn {
     //     }
     // }
 
+    /**
+     * @see IIdProvider.nextBigInt
+     */
     public nextBigInt(): bigint {
         return this._idGen.nextBigInt()
     }
 
+
+    /**
+     * @see IIdProvider.nextShortId
+     */
     public nextShortId(): string {
         return this._idGen.nextShortId()
     }
 
+    /**
+     * @see IIdProvider.nextUuidv4
+     */
     public nextUuidv4(): string {
         return this._idGen.nextUuidv4()
     }

@@ -11,9 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@micro-fleet/common");
 const IdGenerator_1 = require("./IdGenerator");
-// const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = constants
-// type IDirectRpcCaller = import('@micro-fleet/service-communication').IDirectRpcCaller
-// type IRpcResponse = import('@micro-fleet/service-communication').IRpcResponse
 let IdProviderAddOn = class IdProviderAddOn {
     // @lazyInject(ConT.CONFIG_PROVIDER)
     // private _configProvider: IConfigurationProvider
@@ -56,12 +53,21 @@ let IdProviderAddOn = class IdProviderAddOn {
     //         }
     //     }
     // }
+    /**
+     * @see IIdProvider.nextBigInt
+     */
     nextBigInt() {
         return this._idGen.nextBigInt();
     }
+    /**
+     * @see IIdProvider.nextShortId
+     */
     nextShortId() {
         return this._idGen.nextShortId();
     }
+    /**
+     * @see IIdProvider.nextUuidv4
+     */
     nextUuidv4() {
         return this._idGen.nextUuidv4();
     }
