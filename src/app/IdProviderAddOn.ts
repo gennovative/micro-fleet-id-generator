@@ -1,4 +1,4 @@
-import { injectable, /* lazyInject, IConfigurationProvider,
+import { injectable, IServiceAddOn, /* lazyInject, IConfigurationProvider,
     Types as ConT, constants,*/ } from '@micro-fleet/common'
 
 import { IdGenerator } from './IdGenerator'

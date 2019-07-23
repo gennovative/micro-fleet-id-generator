@@ -55,6 +55,7 @@ declare module '@micro-fleet/id-generator/dist/app/IdGenerator' {
 
 }
 declare module '@micro-fleet/id-generator/dist/app/IdProviderAddOn' {
+	import { IServiceAddOn } from '@micro-fleet/common';
 	export interface IIdProvider {
 	    /**
 	     * Generates a chronologically sequential native bigint with Snowflake algorithm.
