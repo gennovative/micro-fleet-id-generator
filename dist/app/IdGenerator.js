@@ -63,11 +63,11 @@ exports.IdGenerator = IdGenerator;
 function bufferToBigInt(buffer) {
     // Eg: Buffer <5A, 6D, 1C, 38, 2C, 00, 00, 00>
     // value = (0x5A << 7) + (0x6D << 6) ....
-    const BITS_PER_BYTE = 8n;
+    const BITS_PER_BYTE = BigInt(8);
     const result = [...buffer].reduce((prev, cur, idx, arr) => {
         const reversedIdx = BigInt(arr.length - 1 - idx);
         return prev + (BigInt(cur) << (reversedIdx * BITS_PER_BYTE));
-    }, 0n);
+    }, BigInt(0));
     return result;
 }
 //# sourceMappingURL=IdGenerator.js.map

@@ -97,7 +97,7 @@ describe('IdGenerator', () => {
 
             // Assert
             expect(typeof bigId).to.equal('bigint')
-            expect(bigId === 6515895263456919552n).to.be.true
+            expect(bigId === BigInt('6515895263456919552')).to.be.true
         })
     }) // END describe 'wrapBigInt'
 })
