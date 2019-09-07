@@ -1,5 +1,9 @@
 ## VERSIONS
 
+
+### 2.3.0
+- Sync version with other packages.
+
 ### 1.2.0 (Coming soon)
 - *IdProvider*: Can fetch from remote source.
 

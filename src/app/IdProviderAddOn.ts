@@ -1,12 +1,7 @@
-import { injectable, IServiceAddOn, /* lazyInject, IConfigurationProvider,
-    Types as ConT, constants,*/ } from '@micro-fleet/common'
+import { IServiceAddOn, decorators as d } from '@micro-fleet/common'
 
 import { IdGenerator } from './IdGenerator'
 
-// const { SvcSettingKeys: SvcS, ModuleNames: M, ActionNames: A } = constants
-
-// type IDirectRpcCaller = import('@micro-fleet/service-communication').IDirectRpcCaller
-// type IRpcResponse = import('@micro-fleet/service-communication').IRpcResponse
 
 export interface IIdProvider {
     /**
@@ -25,7 +20,7 @@ export interface IIdProvider {
     nextUuidv4(): string
 }
 
-@injectable()
+@d.injectable()
 export class IdProviderAddOn implements IIdProvider, IServiceAddOn {
 
     public readonly name: string = 'IdProviderAddOn'

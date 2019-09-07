@@ -8,7 +8,7 @@ import { IdProviderAddOn, IdSettingKeys as IDS } from '../app'
 
 chai.use(spies)
 
-const { SvcSettingKeys: S } = constants
+const { Service: S } = constants
 const expect = chai.expect,
     SVC_SLUG = 'test-svc',
     ID_SVC_ADDR = ['192.168.1.1', '192.168.1.2']
