@@ -78,8 +78,7 @@ let idProd: IdProviderAddOn
 describe('IdProvider', () => {
 
     beforeEach(() => {
-        idProd = new IdProviderAddOn()
-        idProd['_configProvider'] = new MockConfigAddOn()
+        idProd = new IdProviderAddOn(new MockConfigAddOn())
         // idProd['_rpcCaller'] = new MockDirectRpcCaller()
         return idProd.init()
     })
@@ -121,7 +120,7 @@ describe('IdProvider', () => {
     // }) // describe 'dispose'
 
     describe('nextBigInt', () => {
-        it('should return a bigint', async () => {
+        it('should return a bigint', () => {
             // Act
             const id = idProd.nextBigInt()
 
@@ -132,7 +131,7 @@ describe('IdProvider', () => {
     }) // describe 'nextBigInt'
 
     describe('nextShortId', () => {
-        it('should return a short ID string', async () => {
+        it('should return a short ID string', () => {
             // Act
             const id = idProd.nextShortId()
 
@@ -144,7 +143,7 @@ describe('IdProvider', () => {
     }) // describe 'nextShortId'
 
     describe('nextUuidv4', () => {
-        it('should return a version-4 UUID string', async () => {
+        it('should return a version-4 UUID string', () => {
             // Act
             const id = idProd.nextUuidv4()
 

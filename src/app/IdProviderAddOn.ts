@@ -1,6 +1,13 @@
-import { IServiceAddOn, decorators as d } from '@micro-fleet/common'
+import { IServiceAddOn, IConfigurationProvider, constants,
+    SettingItemDataType, decorators as d, Types as T,
+} from '@micro-fleet/common'
 
-import { IdGenerator } from './IdGenerator'
+import { IdGenerator, BigIdOptions } from './IdGenerator'
+
+
+const {
+    IdGenerator: C,
+} = constants
 
 
 export interface IIdProvider {
@@ -32,22 +39,26 @@ export class IdProviderAddOn implements IIdProvider, IServiceAddOn {
     // TODO: Will implement remote ID generation later
     private _idGen: IdGenerator
 
-    // @lazyInject(ConT.CONFIG_PROVIDER)
-    // private _configProvider: IConfigurationProvider
 
     // @lazyInject(ComT.DIRECT_RPC_CALLER)
     // @lazyInject('service-communication.IDirectRpcCaller')
     // private _rpcCaller: IDirectRpcCaller
 
     constructor(
+        @d.inject(T.CONFIG_PROVIDER) private _config: IConfigurationProvider
     ) {
-        this._idGen = new IdGenerator()
     }
 
     /**
      * @see IServiceAddOn.init
      */
     public init(): Promise<void> {
+        const opts: BigIdOptions = {}
+        const getCfg = this._config.get.bind(this._config)
+        getCfg(C.ID_DATACENTER, SettingItemDataType.Number).map(val => opts.datacenter = val)
+        getCfg(C.ID_WORKER, SettingItemDataType.Number).map(val => opts.worker = val)
+        getCfg(C.ID_EPOCH, SettingItemDataType.Number).map(val => opts.epoch = val)
+        this._idGen = new IdGenerator(opts)
         return Promise.resolve()
     }
 
