@@ -6,7 +6,7 @@ const Types_1 = require("./Types");
 function registerIdAddOn() {
     const depCon = common_1.serviceContext.dependencyContainer;
     if (!depCon.isBound(Types_1.Types.ID_PROVIDER)) {
-        depCon.bind(Types_1.Types.ID_PROVIDER, IdProviderAddOn_1.IdProviderAddOn).asSingleton();
+        depCon.bindConstructor(Types_1.Types.ID_PROVIDER, IdProviderAddOn_1.IdProviderAddOn).asSingleton();
     }
     const dbAdt = depCon.resolve(Types_1.Types.ID_PROVIDER);
     return dbAdt;

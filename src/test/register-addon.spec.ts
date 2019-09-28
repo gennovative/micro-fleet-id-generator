@@ -32,13 +32,13 @@ describe('registerIdAddOn', function () {
 
     it('Should not register dependencies if already registered', () => {
         // Arrange
-        depCon.bind<IdProviderAddOn>(T.ID_PROVIDER, IdProviderAddOn)
-        chai.spy.on(depCon, 'bind')
+        depCon.bindConstructor<IdProviderAddOn>(T.ID_PROVIDER, IdProviderAddOn)
+        chai.spy.on(depCon, 'bindConstructor')
 
         // Act
         registerIdAddOn()
 
         // Assert
-        expect(depCon.bind).not.to.be.called
+        expect(depCon.bindConstructor).not.to.be.called
     })
 }) // describe
